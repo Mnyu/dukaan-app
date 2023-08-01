@@ -2,7 +2,16 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const UserSchema = new mongoose.Schema({
+export interface UserInterface {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  createJWT: (jwtSecret: string, jwtLifeTime: string) => string;
+  comparePassword: (candidatePassword: string) => boolean;
+}
+
+const UserSchema = new mongoose.Schema<UserInterface>({
   firstName: {
     type: String,
     required: [true, 'Please provide first name'],
@@ -58,4 +67,4 @@ UserSchema.methods.comparePassword = async function (
   return isMatch;
 };
 
-export const User = mongoose.model('User', UserSchema);
+export const User = mongoose.model<UserInterface>('User', UserSchema);
