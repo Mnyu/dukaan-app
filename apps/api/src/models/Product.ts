@@ -40,7 +40,7 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Please provide product price'],
   },
-  featured: {
+  inStock: {
     type: Boolean,
     default: true,
   },
