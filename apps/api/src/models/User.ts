@@ -7,6 +7,7 @@ export interface UserInterface {
   lastName: string;
   email: string;
   password: string;
+  role: string;
   createJWT: (jwtSecret: string, jwtLifeTime: string) => string;
   comparePassword: (candidatePassword: string) => boolean;
 }
@@ -37,6 +38,14 @@ const UserSchema = new mongoose.Schema<UserInterface>({
     type: String,
     required: [true, 'Please provide password'],
     minLength: 6,
+  },
+  role: {
+    type: String,
+    enum: {
+      values: ['admin', 'user'],
+      message: 'Role not supported',
+    },
+    default: 'user',
   },
 });
 
