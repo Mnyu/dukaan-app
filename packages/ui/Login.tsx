@@ -4,38 +4,34 @@ import { useState } from 'react';
 import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Login = () => {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const clearStateValues = () => {
-    setFirstName('');
-    setLastName('');
     setEmail('');
     setPassword('');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const registerPayload = { firstName, lastName, email, password };
+    const loginPayload = { email, password };
     setIsLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/v1/auth/register',
-        registerPayload
+        'http://localhost:5000/api/v1/auth/login',
+        loginPayload
       );
       localStorage.setItem('token', response.data.token);
       clearStateValues();
       setIsLoading(false);
-      alert('Registration successful.');
+      navigate('/');
     } catch (error) {
       console.error(error);
-      alert('Error in registration.');
       setIsLoading(false);
+      alert('Login unsuccessful.');
     }
   };
 
@@ -46,26 +42,6 @@ const Register = () => {
   return (
     <section className='section-center'>
       <form onSubmit={handleSubmit}>
-        <div className='form-control'>
-          <label htmlFor='firstName'>First Name</label>
-          <input
-            name='firstName'
-            type='text'
-            value={firstName}
-            className='form-input'
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </div>
-        <div className='form-control'>
-          <label htmlFor='lastName'>Last Name</label>
-          <input
-            name='lastName'
-            type='text'
-            value={lastName}
-            className='form-input'
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
         <div className='form-control'>
           <label htmlFor='email'>Email</label>
           <input
@@ -88,23 +64,23 @@ const Register = () => {
         </div>
         <div>
           <button type='submit' className='btn btn-block register-btn'>
-            Register
+            Login
           </button>
         </div>
         <div className='info-btn-container'>
-          <span className='info-btn-text'>Already have an account?&nbsp;</span>
+          <span className='info-btn-text'>Don't have an account?&nbsp;</span>
           <button
             type='button'
             className='info-btn'
             onClick={() => {
-              navigate('/login');
+              navigate('/register');
             }}
           >
-            Sign In
+            Sign Up
           </button>
         </div>
       </form>
     </section>
   );
 };
-export default Register;
+export default Login;

@@ -6,3 +6,4 @@ export * from './Header';
 export * from './Navbar';
 export * from './Register';
 export * from './Loading';
+export * from './Login';
