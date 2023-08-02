@@ -14,11 +14,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-  res.status(200).send('HEY!!!!');
-});
-
 // middleware
+app.use(express.static('dist/public'));
 app.use(express.json());
 app.use(cors());
 app.use('/api/v1/auth', authRouter);

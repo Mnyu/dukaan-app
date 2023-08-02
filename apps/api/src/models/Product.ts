@@ -7,7 +7,7 @@ export interface ProductInterface {
   category: string;
   image: string;
   price: number;
-  featured: boolean;
+  inStock: boolean;
   rating: number;
   seller: UserInterface;
 }

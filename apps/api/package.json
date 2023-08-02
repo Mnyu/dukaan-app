@@ -4,9 +4,10 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "build": "npx tsc",
-    "dev": "npx tsc && node dist/app.js",
-    "start": "node dist/app.js"
+    "build": "npx tsc && yarn copy-files",
+    "dev": "npx tsc && yarn copy-files && node dist/app.js",
+    "start": "node dist/app.js",
+    "copy-files": "cp -r ./src/public/ ./dist/"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
