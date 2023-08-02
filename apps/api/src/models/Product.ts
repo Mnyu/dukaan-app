@@ -1,4 +1,16 @@
 import mongoose from 'mongoose';
+import { UserInterface } from './User';
+
+export interface ProductInterface {
+  name: string;
+  description: string;
+  category: string;
+  image: string;
+  price: number;
+  featured: boolean;
+  rating: number;
+  seller: UserInterface;
+}
 
 const ProductSchema = new mongoose.Schema({
   name: {
@@ -16,13 +28,13 @@ const ProductSchema = new mongoose.Schema({
   category: {
     type: String,
     enum: {
-      values: ['Electronics', 'Clothing', 'Footwear', 'Others'],
+      values: ['electronics', 'clothing', 'footwear', 'others'],
       message: '{VALUE} is not supported',
     },
   },
   image: {
     type: String,
-    required: true,
+    default: '',
   },
   price: {
     type: Number,
@@ -36,4 +48,14 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 1.0,
   },
+  seller: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Please provide seller'],
+  },
 });
+
+export const Product = mongoose.model<ProductInterface>(
+  'Product',
+  ProductSchema
+);
