@@ -10,8 +10,6 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log('*******************************');
-
   console.error(err);
   let statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
   if (

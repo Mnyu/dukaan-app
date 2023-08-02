@@ -1,10 +1,10 @@
+import 'express-async-errors';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectDB } from './db/connect';
 import authRouter from './routes/authRouter';
 import productRouter from './routes/productRouter';
-import 'express-async-errors';
 import notFoundMiddleware from './middleware/notFound';
 import errorHandler from './middleware/errorHandler';
 import authenticateUser from './middleware/authenticator';
