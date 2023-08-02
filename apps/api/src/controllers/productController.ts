@@ -5,7 +5,8 @@ import { NotFoundError } from '../errors/notFound';
 import { BadRequestError } from '../errors/badRequest';
 
 export const getProducts = async (req: Request, res: Response) => {
-  const products = await Product.find({});
+  const userId = req.headers.userId;
+  const products = await Product.find({ seller: userId });
   res.status(StatusCodes.OK).json({ products });
 };
 
@@ -17,8 +18,9 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 export const getProduct = async (req: Request, res: Response) => {
+  const userId = req.headers.userId;
   const { id: productId } = req.params;
-  const product = await Product.findOne({ _id: productId });
+  const product = await Product.findOne({ _id: productId, seller: userId });
   if (!product) {
     throw new NotFoundError(`No product exists with id: ${productId}`);
   }
