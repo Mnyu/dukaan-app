@@ -27,7 +27,7 @@ const Login = () => {
       localStorage.setItem('token', response.data.token);
       clearStateValues();
       setIsLoading(false);
-      navigate('/');
+      navigate('/products');
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -63,7 +63,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <button type='submit' className='btn btn-block register-btn'>
+          <button type='submit' className='btn btn-block form-btn'>
             Login
           </button>
         </div>
