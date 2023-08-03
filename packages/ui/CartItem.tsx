@@ -68,7 +68,7 @@ const CartItem = ({ productId }: CartItemProps) => {
 
   return (
     <article className='cart-item'>
-      <img src='http://localhost:5000/computer-3.jpeg' alt={name} />
+      <img src={`http://localhost:5000${image}`} alt={name} />
       <div>
         <h5>{name}</h5>
         <span className='item-price'>Rs{price}</span>
