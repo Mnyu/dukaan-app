@@ -10,6 +10,7 @@ const InitUser = () => {
     let isLoading = false;
     let email = null;
     let role = null;
+    let cart = new Map();
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
@@ -23,7 +24,7 @@ const InitUser = () => {
     } catch (error) {
       console.log(error);
     }
-    setUserState({ isLoading, email, role });
+    setUserState({ isLoading, email, role, cart });
   };
 
   useEffect(() => {

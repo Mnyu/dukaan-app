@@ -7,6 +7,7 @@ import HomePage from './HomePage';
 import Products from 'ui/Products';
 import Register from 'ui/Register';
 import Login from 'ui/Login';
+import Cart from 'ui/Cart';
 
 export default function Page() {
   return (
@@ -20,6 +21,7 @@ export default function Page() {
             <Route path={'/register'} element={<Register />} />
             <Route path={'/login'} element={<Login />} />
             <Route path={'/products'} element={<Products />} />
+            <Route path={'/cart'} element={<Cart />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

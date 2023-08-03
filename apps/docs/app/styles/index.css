@@ -163,6 +163,7 @@ ul {
 .btn-hipster {
   color: var(--primary-500);
   background: var(--primary-200);
+  margin-right: 1rem;
 }
 .btn-hipster:hover {
   color: var(--primary-200);
@@ -331,7 +332,7 @@ Cart
   margin-top: 40px;
   padding: 2.5rem 0;
 }
-.cart h2 {
+.cart h3 {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 3rem;

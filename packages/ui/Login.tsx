@@ -32,6 +32,7 @@ const Login = () => {
         isLoading: false,
         email: response.data.email,
         role: response.data.role,
+        cart: new Map(),
       });
       clearStateValues();
       setIsLoading(false);

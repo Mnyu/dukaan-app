@@ -6,5 +6,6 @@ export const UserAtom = atom({
     isLoading: true,
     email: null,
     role: null,
+    cart: new Map(),
   },
 });

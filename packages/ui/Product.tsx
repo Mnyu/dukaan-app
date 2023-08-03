@@ -1,5 +1,10 @@
-import { useRecoilValue } from 'recoil';
-import { userRoleSelector } from 'store';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  UserAtom,
+  userCartSelector,
+  userRoleSelector,
+  userEmailSelector,
+} from 'store';
 
 interface ProductInterface {
   _id: string;
@@ -13,11 +18,33 @@ interface ProductInterface {
   seller: string;
 }
 
-const Product = (product: ProductInterface) => {
-  const userRole = useRecoilValue(userRoleSelector);
+interface OrderItemInterface {
+  product: ProductInterface;
+  quantity: number;
+}
 
-  const handleAddToCart = (productId: string) => {
-    console.log(productId);
+const Product = (product: ProductInterface) => {
+  const userEmail = useRecoilValue(userEmailSelector);
+  const userRole = useRecoilValue(userRoleSelector);
+  const userCart = useRecoilValue(userCartSelector);
+  const setUserState = useSetRecoilState(UserAtom);
+
+  const handleAddToCart = (product: ProductInterface) => {
+    const productId = product._id;
+    const existingOrderItem = userCart.get(productId);
+    let newQuantity = 1;
+    if (existingOrderItem) {
+      newQuantity = existingOrderItem.quantity + 1;
+      product = existingOrderItem.product;
+    }
+    const newCart = new Map(userCart);
+    newCart.set(productId, { product, quantity: newQuantity });
+    setUserState({
+      email: userEmail,
+      role: userRole,
+      isLoading: false,
+      cart: newCart,
+    });
   };
 
   const handleEditProduct = (productId: string) => {
@@ -67,7 +94,7 @@ const Product = (product: ProductInterface) => {
             <button
               type='button'
               className='btn edit-btn'
-              onClick={() => handleAddToCart(_id)}
+              onClick={() => handleAddToCart(product)}
             >
               Add to Cart
             </button>

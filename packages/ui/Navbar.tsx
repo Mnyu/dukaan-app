@@ -1,16 +1,25 @@
 import { FaCartPlus, FaUserAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userEmailSelector, userRoleSelector, UserAtom } from 'store';
+import {
+  userEmailSelector,
+  userRoleSelector,
+  UserAtom,
+  userCartSelector,
+  getTotals,
+} from 'store';
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const setUserState = useSetRecoilState(UserAtom);
   const userEmail = useRecoilValue(userEmailSelector);
   const userRole = useRecoilValue(userRoleSelector);
+  const userCart = useRecoilValue(userCartSelector);
+
+  const { totalItems } = getTotals(userCart);
 
   const handleCartClick = () => {
-    navigate('/');
+    navigate('/cart');
   };
 
   const handleCreateProduct = () => {
@@ -27,6 +36,7 @@ export const Navbar = () => {
       isLoading: false,
       email: null,
       role: null,
+      cart: new Map(),
     });
     navigate('/');
   };
@@ -51,7 +61,7 @@ export const Navbar = () => {
             <div className='cart-container'>
               <FaCartPlus className='cart-icon' onClick={handleCartClick} />
               <div className='amount-container'>
-                <p className='total-amount'>5</p>
+                <p className='total-amount'>{totalItems}</p>
               </div>
             </div>
           )}

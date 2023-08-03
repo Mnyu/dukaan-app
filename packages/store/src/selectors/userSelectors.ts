@@ -24,3 +24,11 @@ export const userRoleSelector = selector({
     return userAtom.role;
   },
 });
+
+export const userCartSelector = selector({
+  key: 'userCartSelector',
+  get: ({ get }) => {
+    const userAtom = get(UserAtom);
+    return userAtom.cart;
+  },
+});
