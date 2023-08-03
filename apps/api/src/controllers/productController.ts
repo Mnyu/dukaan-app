@@ -3,6 +3,27 @@ import { StatusCodes } from 'http-status-codes';
 import { Product } from '../models/Product';
 import { NotFoundError } from '../errors/notFound';
 import { BadRequestError } from '../errors/badRequest';
+import path from 'path';
+import { UploadedFile } from 'express-fileupload';
+
+const maxSize = 1024 * 1024;
+
+export const uploadProductImage = async (req: Request, res: Response) => {
+  if (!req.files) {
+    throw new BadRequestError('No file uploaded');
+  }
+  const productImage = req.files.image as UploadedFile;
+
+  if (!productImage.mimetype.startsWith('image')) {
+    throw new BadRequestError('Please upload an image');
+  }
+  if (productImage.size > maxSize) {
+    throw new BadRequestError('Please upload image smaller than 1MB');
+  }
+  const imagePath = path.join(__dirname, `../public/${productImage.name}`);
+  await productImage.mv(imagePath);
+  res.status(StatusCodes.OK).json({ image: { src: `/${productImage.name}` } });
+};
 
 export const getProducts = async (req: Request, res: Response) => {
   const userId = req.headers.userId;

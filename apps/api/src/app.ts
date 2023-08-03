@@ -10,6 +10,7 @@ import orderRouter from './routes/orderRouter';
 import notFoundMiddleware from './middleware/notFound';
 import errorHandler from './middleware/errorHandler';
 import authenticateUser from './middleware/authenticator';
+import fileUpload from 'express-fileupload';
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(express.static('dist/public'));
 app.use(express.json());
+app.use(fileUpload());
 app.use(cors());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', authenticateUser, userRouter);

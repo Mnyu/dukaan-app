@@ -79,11 +79,7 @@ const Product = (product: ProductInterface) => {
     product;
   return (
     <article className='single-product'>
-      <img
-        src='http://localhost:5000/computer-3.jpeg'
-        alt={image}
-        className='img'
-      />
+      <img src={`http://localhost:5000${image}`} alt={name} className='img' />
       <span className='product-price'>Rs{price}</span>
       <div className='product-info'>
         <h5>{name}</h5>

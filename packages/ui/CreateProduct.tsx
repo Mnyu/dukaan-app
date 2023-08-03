@@ -13,6 +13,7 @@ const CreateProduct = () => {
   const [image, setImage] = useState('');
   const [inStock, setInStock] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
 
   const clearStateValues = () => {
     setName('');
@@ -23,22 +24,59 @@ const CreateProduct = () => {
     setInStock(false);
   };
 
-  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {};
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target && e.target.files) {
+      setIsLoading(true);
+      const file = e.target.files[0];
+      const fileReader = new FileReader();
+      try {
+        const token = localStorage.getItem('token');
+        const imageData = new FormData();
+        // imageData.append('files', previewImage);
+        imageData.append('image', file);
+        const imageUploadResponse = await axios.post(
+          `http://localhost:5000/api/v1/products/upload`,
+          imageData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setImage(imageUploadResponse.data.image.src);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        alert('Error uploading image.');
+        setIsLoading(false);
+      }
+      fileReader.addEventListener('load', () => {
+        if (
+          fileReader &&
+          fileReader.result &&
+          typeof fileReader.result === 'string'
+        ) {
+          setPreviewImage(fileReader.result);
+        }
+      });
+      fileReader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    const addProductPayload = {
-      name,
-      description,
-      category,
-      price,
-      image,
-      inStock,
-    };
-
     try {
       const token = localStorage.getItem('token');
+      const addProductPayload = {
+        name,
+        description,
+        category,
+        price,
+        image,
+        inStock,
+      };
       const response = await axios.post(
         'http://localhost:5000/api/v1/products',
         addProductPayload,
@@ -132,6 +170,11 @@ const CreateProduct = () => {
             onChange={handleChangeImage}
           />
         </div>
+        {previewImage && (
+          <div className='form-control-img'>
+            <img src={previewImage} alt='image' className='img' />
+          </div>
+        )}
         <div>
           <button type='submit' className='btn btn-block form-btn'>
             Add

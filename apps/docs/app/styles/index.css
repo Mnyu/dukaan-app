@@ -285,8 +285,10 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
-nav h4,
-h5 {
+nav h4 {
+  color: var(--white);
+}
+nav h5 {
   color: var(--white);
 }
 
@@ -436,7 +438,7 @@ NEW
 .section-center {
   width: 90vw;
   margin: 0 auto;
-  margin-top: 8rem;
+  margin-top: 5rem;
   max-width: 30rem;
   background: var(--white);
   border-radius: var(--borderRadius);
@@ -461,6 +463,11 @@ NEW
 .form-control label {
   display: flex;
   align-items: center;
+}
+.form-control img {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 1rem;
 }
 .form-btn {
   margin-top: 2rem;
@@ -547,6 +554,7 @@ NEW
   line-height: 1.5;
 }
 .product-info p {
+  text-align: center;
   margin-bottom: 1rem;
   line-height: 1.5;
   color: var(--grey-500);
