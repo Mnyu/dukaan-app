@@ -1,4 +1,7 @@
+'use client';
+import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
   userEmailSelector,
@@ -8,6 +11,29 @@ import {
   getTotals,
 } from 'store';
 import CartItem from './CartItem';
+import Loading from './Loading';
+
+interface ProductInterface {
+  _id: string;
+  name: string;
+  description: string;
+  category: string;
+  image: string;
+  price: number;
+  inStock: boolean;
+  rating: number;
+  seller: string;
+}
+
+interface OrderItemInterface {
+  product: ProductInterface;
+  quantity: number;
+}
+
+type OrderPayload = {
+  orderItems: OrderItemInterface[];
+  amount: number;
+};
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -15,13 +41,43 @@ const Cart = () => {
   const userRole = useRecoilValue(userRoleSelector);
   const userCart = useRecoilValue(userCartSelector);
   const setUserState = useSetRecoilState(UserAtom);
+  const [isLoading, setIsLoading] = useState(false);
 
   const cartItems = Array.from(userCart.entries());
   const { totalCost } = getTotals(userCart);
 
-  const submitOrder = () => {
-    navigate('/orders');
-    alert('Order Submitted');
+  const submitOrder = async () => {
+    setIsLoading(true);
+    const orderPayload: OrderPayload = {
+      orderItems: [],
+      amount: totalCost,
+    };
+    userCart.forEach((value, key) => {
+      orderPayload.orderItems.push({
+        product: value.product._id,
+        quantity: value.quantity,
+      });
+    });
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        'http://localhost:5000/api/v1/orders',
+        orderPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      clearCart();
+      setIsLoading(false);
+      navigate('/orders');
+      alert('Order Submitted');
+    } catch (error) {
+      console.error(error);
+      alert('Error creating order.');
+      setIsLoading(false);
+    }
   };
 
   const clearCart = () => {
@@ -32,6 +88,10 @@ const Cart = () => {
       cart: new Map(),
     });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (cartItems.length === 0) {
     return (

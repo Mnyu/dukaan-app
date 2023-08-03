@@ -18,8 +18,12 @@ export const Navbar = () => {
 
   const { totalItems } = getTotals(userCart);
 
-  const handleCartClick = () => {
+  const openCart = () => {
     navigate('/cart');
+  };
+
+  const viewOrders = () => {
+    navigate('/orders');
   };
 
   const handleCreateProduct = () => {
@@ -30,7 +34,7 @@ export const Navbar = () => {
     navigate('/');
   };
 
-  const handleLogout = () => {
+  const logout = () => {
     localStorage.removeItem('token');
     setUserState({
       isLoading: false,
@@ -59,18 +63,19 @@ export const Navbar = () => {
           )}
           {userEmail && userRole === 'user' && (
             <div className='cart-container'>
-              <FaCartPlus className='cart-icon' onClick={handleCartClick} />
+              <FaCartPlus className='cart-icon' onClick={openCart} />
               <div className='amount-container'>
                 <p className='total-amount'>{totalItems}</p>
               </div>
             </div>
           )}
+          {userEmail && userRole === 'user' && (
+            <button type='button' className='btn nav-btn' onClick={viewOrders}>
+              Your Orders
+            </button>
+          )}
           {userEmail && (
-            <button
-              type='button'
-              className='btn nav-btn'
-              onClick={handleLogout}
-            >
+            <button type='button' className='btn nav-btn' onClick={logout}>
               Logout
             </button>
           )}
