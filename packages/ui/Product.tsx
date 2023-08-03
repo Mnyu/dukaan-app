@@ -1,9 +1,12 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   UserAtom,
   userCartSelector,
   userRoleSelector,
   userEmailSelector,
+  userNameSelector,
 } from 'store';
 
 interface ProductInterface {
@@ -24,6 +27,8 @@ interface OrderItemInterface {
 }
 
 const Product = (product: ProductInterface) => {
+  const navigate = useNavigate();
+  const userName = useRecoilValue(userNameSelector);
   const userEmail = useRecoilValue(userEmailSelector);
   const userRole = useRecoilValue(userRoleSelector);
   const userCart = useRecoilValue(userCartSelector);
@@ -40,6 +45,7 @@ const Product = (product: ProductInterface) => {
     const newCart = new Map(userCart);
     newCart.set(productId, { product, quantity: newQuantity });
     setUserState({
+      name: userName,
       email: userEmail,
       role: userRole,
       isLoading: false,
@@ -48,10 +54,25 @@ const Product = (product: ProductInterface) => {
   };
 
   const handleEditProduct = (productId: string) => {
-    console.log(productId);
+    alert('To be implemented soon.');
   };
-  const handleDeleteProduct = (productId: string) => {
-    console.log(productId);
+
+  const handleDeleteProduct = async (productId: string) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(
+        `http://localhost:5000/api/v1/products/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      navigate('/products');
+    } catch (error) {
+      console.error(error);
+      alert('Error in deleting product.');
+    }
   };
 
   const { _id, name, description, image, price, category, inStock, seller } =

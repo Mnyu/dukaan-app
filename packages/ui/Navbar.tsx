@@ -6,11 +6,13 @@ import {
   userRoleSelector,
   UserAtom,
   userCartSelector,
+  userNameSelector,
   getTotals,
 } from 'store';
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const userName = useRecoilValue(userNameSelector);
   const setUserState = useSetRecoilState(UserAtom);
   const userEmail = useRecoilValue(userEmailSelector);
   const userRole = useRecoilValue(userRoleSelector);
@@ -37,6 +39,7 @@ export const Navbar = () => {
   const logout = () => {
     localStorage.removeItem('token');
     setUserState({
+      name: null,
       isLoading: false,
       email: null,
       role: null,
@@ -51,6 +54,8 @@ export const Navbar = () => {
         <h4 className='logo' onClick={handleLogoClick}>
           Dukaan
         </h4>
+        {userRole === 'admin' && <h4>Product Administration</h4>}
+        {userName && <h5>{userName}&nbsp;</h5>}
         <div className='nav-container'>
           {userRole === 'admin' && (
             <button

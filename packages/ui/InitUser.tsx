@@ -7,6 +7,7 @@ const InitUser = () => {
   const setUserState = useSetRecoilState(UserAtom);
 
   const initUser = async () => {
+    let name = null;
     let isLoading = false;
     let email = null;
     let role = null;
@@ -18,13 +19,14 @@ const InitUser = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data.email && response.data.role) {
+        name = response.data.name;
         email = response.data.email;
         role = response.data.role;
       }
     } catch (error) {
       console.log(error);
     }
-    setUserState({ isLoading, email, role, cart });
+    setUserState({ name, isLoading, email, role, cart });
   };
 
   useEffect(() => {

@@ -14,9 +14,12 @@ export const register = async (req: Request, res: Response) => {
     process.env.JWT_SECRET,
     process.env.JWT_LIFETIME
   );
-  res
-    .status(StatusCodes.CREATED)
-    .json({ token, email: user.email, role: user.role });
+  res.status(StatusCodes.CREATED).json({
+    token,
+    email: user.email,
+    role: user.role,
+    name: user.firstName + ' ' + user.lastName,
+  });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -39,7 +42,10 @@ export const login = async (req: Request, res: Response) => {
     process.env.JWT_SECRET,
     process.env.JWT_LIFETIME
   );
-  res
-    .status(StatusCodes.OK)
-    .json({ token, email: user.email, role: user.role });
+  res.status(StatusCodes.OK).json({
+    token,
+    email: user.email,
+    role: user.role,
+    name: user.firstName + ' ' + user.lastName,
+  });
 };

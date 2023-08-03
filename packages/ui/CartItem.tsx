@@ -5,6 +5,7 @@ import {
   UserAtom,
   userEmailSelector,
   userRoleSelector,
+  userNameSelector,
 } from 'store';
 
 type CartItemProps = {
@@ -12,6 +13,7 @@ type CartItemProps = {
 };
 
 const CartItem = ({ productId }: CartItemProps) => {
+  const userName = useRecoilValue(userNameSelector);
   const userEmail = useRecoilValue(userEmailSelector);
   const userRole = useRecoilValue(userRoleSelector);
   const userCart = useRecoilValue(userCartSelector);
@@ -24,6 +26,7 @@ const CartItem = ({ productId }: CartItemProps) => {
     const newCart = new Map(userCart);
     newCart.delete(productId);
     setUserState({
+      name: userName,
       email: userEmail,
       role: userRole,
       isLoading: false,
@@ -37,6 +40,7 @@ const CartItem = ({ productId }: CartItemProps) => {
     const newQuantity = existingOrderItem.quantity + 1;
     newCart.set(productId, { ...existingOrderItem, quantity: newQuantity });
     setUserState({
+      name: userName,
       email: userEmail,
       role: userRole,
       isLoading: false,
@@ -54,6 +58,7 @@ const CartItem = ({ productId }: CartItemProps) => {
       newCart.set(productId, { ...existingOrderItem, quantity: newQuantity });
     }
     setUserState({
+      name: userName,
       email: userEmail,
       role: userRole,
       isLoading: false,

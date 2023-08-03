@@ -8,6 +8,7 @@ import {
   userRoleSelector,
   UserAtom,
   userCartSelector,
+  userNameSelector,
   getTotals,
 } from 'store';
 import CartItem from './CartItem';
@@ -37,6 +38,7 @@ type OrderPayload = {
 
 const Cart = () => {
   const navigate = useNavigate();
+  const userName = useRecoilValue(userNameSelector);
   const userEmail = useRecoilValue(userEmailSelector);
   const userRole = useRecoilValue(userRoleSelector);
   const userCart = useRecoilValue(userCartSelector);
@@ -82,6 +84,7 @@ const Cart = () => {
 
   const clearCart = () => {
     setUserState({
+      name: userName,
       email: userEmail,
       role: userRole,
       isLoading: false,

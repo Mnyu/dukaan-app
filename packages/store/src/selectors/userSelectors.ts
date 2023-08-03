@@ -9,6 +9,14 @@ export const isUserLoadingSelector = selector({
   },
 });
 
+export const userNameSelector = selector({
+  key: 'userNameSelector',
+  get: ({ get }) => {
+    const userAtom = get(UserAtom);
+    return userAtom.name;
+  },
+});
+
 export const userEmailSelector = selector({
   key: 'userEmailSelector',
   get: ({ get }) => {

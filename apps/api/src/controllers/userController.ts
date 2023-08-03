@@ -11,6 +11,7 @@ export const me = async (req: Request, res: Response) => {
     throw new UnauthorizedError('User does not exist');
   }
   res.status(StatusCodes.OK).json({
+    name: user.firstName + ' ' + user.lastName,
     email: user.email,
     role: user.role,
   });

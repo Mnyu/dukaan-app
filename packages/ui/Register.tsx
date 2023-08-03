@@ -33,6 +33,7 @@ const Register = () => {
       );
       localStorage.setItem('token', response.data.token);
       setUserState({
+        name: response.data.name,
         isLoading: false,
         email: response.data.email,
         role: response.data.role,

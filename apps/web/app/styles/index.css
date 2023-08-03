@@ -284,7 +284,8 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
-nav h4 {
+nav h4,
+h5 {
   color: var(--white);
 }
 .nav-container {
