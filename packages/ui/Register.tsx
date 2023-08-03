@@ -3,9 +3,12 @@ import axios from 'axios';
 import { useState } from 'react';
 import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { UserAtom } from 'store';
 
 const Register = () => {
   const navigate = useNavigate();
+  const setUserState = useSetRecoilState(UserAtom);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -29,9 +32,13 @@ const Register = () => {
         registerPayload
       );
       localStorage.setItem('token', response.data.token);
+      setUserState({
+        isLoading: false,
+        email: response.data.email,
+        role: response.data.role,
+      });
       clearStateValues();
       setIsLoading(false);
-      alert('Registration successful.');
     } catch (error) {
       console.error(error);
       alert('Error in registration.');

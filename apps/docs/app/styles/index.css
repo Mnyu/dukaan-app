@@ -287,6 +287,7 @@ nav {
 nav h4 {
   color: var(--white);
 }
+
 .nav-container {
   display: flex;
 }

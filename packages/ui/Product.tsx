@@ -1,3 +1,6 @@
+import { useRecoilValue } from 'recoil';
+import { userRoleSelector } from 'store';
+
 interface ProductInterface {
   _id: string;
   name: string;
@@ -11,6 +14,12 @@ interface ProductInterface {
 }
 
 const Product = (product: ProductInterface) => {
+  const userRole = useRecoilValue(userRoleSelector);
+
+  const handleAddToCart = (productId: string) => {
+    console.log(productId);
+  };
+
   const handleEditProduct = (productId: string) => {
     console.log(productId);
   };
@@ -35,22 +44,35 @@ const Product = (product: ProductInterface) => {
           <p>{category}</p>
           {inStock ? <p>In stock</p> : <p>Not in stock</p>}
         </div>
-        <div className='product-btn'>
-          <button
-            type='button'
-            className='btn edit-btn'
-            onClick={() => handleEditProduct(_id)}
-          >
-            Edit Product
-          </button>
-          <button
-            type='button'
-            className='btn edit-btn'
-            onClick={() => handleDeleteProduct(_id)}
-          >
-            Delete Product
-          </button>
-        </div>
+        {userRole === 'admin' && (
+          <div className='product-btn'>
+            <button
+              type='button'
+              className='btn edit-btn'
+              onClick={() => handleEditProduct(_id)}
+            >
+              Edit Product
+            </button>
+            <button
+              type='button'
+              className='btn edit-btn'
+              onClick={() => handleDeleteProduct(_id)}
+            >
+              Delete Product
+            </button>
+          </div>
+        )}
+        {userRole === 'user' && (
+          <div className='add-cart-btn'>
+            <button
+              type='button'
+              className='btn edit-btn'
+              onClick={() => handleAddToCart(_id)}
+            >
+              Add to Cart
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );

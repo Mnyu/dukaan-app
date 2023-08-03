@@ -3,9 +3,12 @@ import axios from 'axios';
 import { useState } from 'react';
 import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { UserAtom } from 'store';
 
 const Login = () => {
   const navigate = useNavigate();
+  const setUserState = useSetRecoilState(UserAtom);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +28,11 @@ const Login = () => {
         loginPayload
       );
       localStorage.setItem('token', response.data.token);
+      setUserState({
+        isLoading: false,
+        email: response.data.email,
+        role: response.data.role,
+      });
       clearStateValues();
       setIsLoading(false);
       navigate('/products');

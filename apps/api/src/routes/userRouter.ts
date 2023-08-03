@@ -1,8 +1,9 @@
 import express from 'express';
-import { me } from '../controllers/userController';
+import { getProductsForUsers, me } from '../controllers/userController';
 
 const router = express.Router();
 
 router.route('/me').get(me);
+router.route('/products').get(getProductsForUsers);
 
 export default router;
