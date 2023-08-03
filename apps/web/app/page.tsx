@@ -18,7 +18,10 @@ export default function Page() {
           <Navbar />
           <Routes>
             <Route path={'/'} element={<HomePage />} />
-            <Route path={'/register'} element={<Register />} />
+            <Route
+              path={'/register'}
+              element={<Register {...{ role: 'admin' }} />}
+            />
             <Route path={'/login'} element={<Login />} />
             <Route path={'/add-product'} element={<CreateProduct />} />
             <Route path={'/products'} element={<Products />} />

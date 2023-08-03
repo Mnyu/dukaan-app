@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { UserAtom } from 'store';
 
-const Register = () => {
+type RegisterProps = {
+  role: string;
+};
+
+const Register = ({ role }: RegisterProps) => {
   const navigate = useNavigate();
   const setUserState = useSetRecoilState(UserAtom);
   const [firstName, setFirstName] = useState('');
@@ -24,7 +28,7 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const registerPayload = { firstName, lastName, email, password };
+    const registerPayload = { firstName, lastName, email, password, role };
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -41,6 +45,7 @@ const Register = () => {
       });
       clearStateValues();
       setIsLoading(false);
+      navigate('/products');
     } catch (error) {
       console.error(error);
       alert('Error in registration.');
