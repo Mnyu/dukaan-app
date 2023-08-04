@@ -7,7 +7,11 @@ import { useSetRecoilState } from 'recoil';
 import { UserAtom } from 'store';
 import { RegisterLoginUserResponse, BASE_API_URL } from 'common';
 
-const Login = () => {
+type LoginUserProps = {
+  expectedRole: string;
+};
+
+const Login = ({ expectedRole }: LoginUserProps) => {
   const navigate = useNavigate();
   const setUserState = useSetRecoilState(UserAtom);
   const [email, setEmail] = useState('');
@@ -29,17 +33,23 @@ const Login = () => {
         loginPayload
       );
       const data: RegisterLoginUserResponse = response.data;
-      localStorage.setItem('token', data.token);
-      setUserState({
-        name: data.name,
-        isLoading: false,
-        email: data.email,
-        role: data.role,
-        cart: new Map(),
-      });
-      clearStateValues();
-      setIsLoading(false);
-      navigate('/products');
+      if (data.role !== expectedRole) {
+        alert(`${data.email} is not registered as ${expectedRole}.`);
+        clearStateValues();
+        setIsLoading(false);
+      } else {
+        localStorage.setItem('token', data.token);
+        setUserState({
+          name: data.name,
+          isLoading: false,
+          email: data.email,
+          role: data.role,
+          cart: new Map(),
+        });
+        clearStateValues();
+        setIsLoading(false);
+        navigate('/products');
+      }
     } catch (error) {
       console.error(error);
       setIsLoading(false);

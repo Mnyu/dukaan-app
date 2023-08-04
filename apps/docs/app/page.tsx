@@ -9,15 +9,18 @@ export default function Page() {
     <>
       <RecoilRoot>
         <BrowserRouter>
-          <InitUser />
-          <Navbar />
+          <InitUser {...{ expectedRole: 'user' }} />
+          <Navbar {...{ title: '' }} />
           <Routes>
             <Route path={'/'} element={<HomePage />} />
             <Route
               path={'/register'}
               element={<Register {...{ role: 'user' }} />}
             />
-            <Route path={'/login'} element={<Login />} />
+            <Route
+              path={'/login'}
+              element={<Login {...{ expectedRole: 'user' }} />}
+            />
             <Route path={'/products'} element={<Products />} />
             <Route path={'/cart'} element={<Cart />} />
             <Route path={'/orders'} element={<Orders />} />

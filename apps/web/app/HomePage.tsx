@@ -17,6 +17,6 @@ const HomePage = () => {
   if (userEmail && userRole === 'admin') {
     return <Products />;
   }
-  return <Login />;
+  return <Login {...{ expectedRole: 'admin' }} />;
 };
 export default HomePage;

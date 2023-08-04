@@ -8,10 +8,13 @@ import {
   userCartSelector,
   userNameSelector,
 } from 'store';
-
 import { getTotals } from 'common';
 
-const Navbar = () => {
+type NavbarProps = {
+  title: string;
+};
+
+const Navbar = ({ title }: NavbarProps) => {
   const navigate = useNavigate();
   const userName = useRecoilValue(userNameSelector);
   const setUserState = useSetRecoilState(UserAtom);
@@ -55,7 +58,7 @@ const Navbar = () => {
         <h4 className='logo' onClick={handleLogoClick}>
           Dukaan
         </h4>
-        {userRole === 'admin' && <h4>Product Administration</h4>}
+        {title && <h4>{title}</h4>}
         {userName && <h5>{userName}&nbsp;</h5>}
         <div className='nav-container'>
           {userRole === 'admin' && (

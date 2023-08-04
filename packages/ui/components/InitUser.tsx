@@ -2,26 +2,31 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { UserAtom } from 'store';
-import { BASE_API_URL } from 'common';
+import { BASE_API_URL, UserResponse } from 'common';
 
-const InitUser = () => {
+type InitUserProps = {
+  expectedRole: string;
+};
+
+const InitUser = ({ expectedRole }: InitUserProps) => {
   const setUserState = useSetRecoilState(UserAtom);
 
   const initUser = async () => {
-    let name = null;
+    let name = '';
     let isLoading = false;
-    let email = null;
-    let role = null;
+    let email = '';
+    let role = '';
     let cart = new Map();
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(`${BASE_API_URL}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (response.data.email && response.data.role) {
-        name = response.data.name;
-        email = response.data.email;
-        role = response.data.role;
+      const user: UserResponse = response.data;
+      if (user.email && user.role === expectedRole) {
+        name = user.name;
+        email = user.email;
+        role = user.role;
       }
     } catch (error) {
       console.log(error);
