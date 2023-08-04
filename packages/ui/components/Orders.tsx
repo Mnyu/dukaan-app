@@ -1,25 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
-
-type OrderItem = {
-  product: string;
-  quantity: number;
-  _id: string;
-};
-
-type Order = {
-  _id: string;
-  orderItems: OrderItem[];
-  amount: number;
-  user: string;
-};
+import { BASE_API_URL, BASE_URL, Order, OrderItem } from 'common';
 
 const Orders = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [orders, setOrders] = useState<Order[]>([]);
-
-  const BASE_URL = 'http://localhost:5000/api/v1';
 
   const findTotalItems = (orderItems: OrderItem[]): number => {
     let totalItems = 0;
@@ -31,7 +17,7 @@ const Orders = () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BASE_URL}/orders`, {
+      const response = await axios.get(`${BASE_API_URL}/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +48,7 @@ const Orders = () => {
         {orders.map((order) => {
           return (
             <article key={order._id} className='cart-item'>
-              <img src='http://localhost:5000/order.jpeg' alt='order' />
+              <img src={`${BASE_URL}/order.jpeg`} alt='order' />
               <div>
                 <h5>Order Id : {order._id}</h5>
                 <h5>Amount : Rs{order.amount}</h5>
