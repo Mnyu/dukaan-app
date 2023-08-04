@@ -1,4 +1,109 @@
-# Turborepo starter
+# DUKAAN-APP
+
+This is an e-commerce app with an admin dashboard and a user facing dashboard using Turborepo in a single monorepo.
+
+## Local Setup
+
+### Prerequisites
+
+- Mongo DB running either locally or on cloud.
+- A super secret key to be used for JWT signature
+
+### Steps
+
+1. Clone the repository locally.
+   ```
+   git clone git@github.com:Mnyu/dukaan-app.git
+   ```
+2. Open the folder `dukaan-app` in VSCode.
+
+3. Inside `apps -> api` folder, create a copy of `.env.example` with file name as `.env`.
+
+4. In the `.env` file, replace the values of `MONGO_URI`, `JWT_SECRET` and `JWT_LIFETIME` (possible values 60, 1h, 1d) as per your environment.
+
+5. Open new terminal in VSCode and run
+
+   ```
+   yarn install
+   ```
+
+6.
+
+```
+cd packages/common/
+yarn build
+```
+
+7.
+
+```
+cd ../store/
+yarn build
+```
+
+6. Now run
+
+   ```
+   cd ../..
+   yarn run dev
+   ```
+
+7. Following statements should be visible in logs : <br>
+   `Database connection successful.` <br>
+   `Server is listening on port 5000...`
+
+8. Admin Dashboard : `http://localhost:3000/` <br>
+   User Dashboard : `http://localhost:3001/`
+
+---
+
+### Known Issues :
+
+1. `yarn run build` - throws following error at `dukaan-app` level :
+
+```
+docs:build: ReferenceError: document is not defined
+docs:build:     at getUrlBasedHistory (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/docs/.next/server/chunks/876.js:406:14)
+docs:build:     at Object.createBrowserHistory (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/docs/.next/server/chunks/876.js:239:10)
+docs:build:     at exports.modules.8292.e.BrowserRouter (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/docs/.next/server/chunks/876.js:20055:14758)
+docs:build:     at Ue (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:113:273)
+docs:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:91)
+docs:build:     at Ve (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:123:155)
+docs:build:     at Xe (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:122:289)
+docs:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:350)
+docs:build:     at Ue (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:118:191)
+docs:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:91)
+web:build: ReferenceError: document is not defined
+web:build:     at getUrlBasedHistory (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/web/.next/server/chunks/876.js:406:14)
+web:build:     at Object.createBrowserHistory (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/web/.next/server/chunks/876.js:239:10)
+web:build:     at exports.modules.8292.e.BrowserRouter (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/web/.next/server/chunks/876.js:20053:14758)
+web:build:     at Ue (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:113:273)
+web:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:91)
+web:build:     at Ve (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:123:155)
+web:build:     at Xe (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:122:289)
+web:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:350)
+web:build:     at Ue (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:118:191)
+web:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:91)
+docs:build:
+docs:build: Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+docs:build: ReferenceError: document is not defined
+docs:build:     at getUrlBasedHistory (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/docs/.next/server/chunks/876.js:406:14)
+docs:build:     at Object.createBrowserHistory (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/docs/.next/server/chunks/876.js:239:10)
+docs:build:     at exports.modules.8292.e.BrowserRouter (/Users/abhimgup/manyu/react/cohort/dukaan-app/apps/docs/.next/server/chunks/876.js:20055:14758)
+docs:build:     at Ue (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:113:273)
+docs:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:91)
+docs:build:     at Ve (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:123:155)
+docs:build:     at Xe (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:122:289)
+docs:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:350)
+docs:build:     at Ue (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:118:191)
+docs:build:     at Z (/Users/abhimgup/manyu/react/cohort/dukaan-app/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:120:91)
+```
+
+<br><br>
+
+=========================================================================
+
+## TURBOREPO README
 
 This is an official starter Turborepo.
 
