@@ -5,6 +5,7 @@ import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { UserAtom } from 'store';
+import { RegisterLoginUserResponse } from 'common';
 
 type RegisterProps = {
   role: string;
@@ -35,12 +36,13 @@ const Register = ({ role }: RegisterProps) => {
         'http://localhost:5000/api/v1/auth/register',
         registerPayload
       );
-      localStorage.setItem('token', response.data.token);
+      const data: RegisterLoginUserResponse = response.data;
+      localStorage.setItem('token', data.token);
       setUserState({
-        name: response.data.name,
+        name: data.name,
         isLoading: false,
-        email: response.data.email,
-        role: response.data.role,
+        email: data.email,
+        role: data.role,
         cart: new Map(),
       });
       clearStateValues();

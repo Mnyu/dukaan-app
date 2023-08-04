@@ -8,23 +8,7 @@ import {
   userEmailSelector,
   userNameSelector,
 } from 'store';
-
-interface ProductInterface {
-  _id: string;
-  name: string;
-  description: string;
-  category: string;
-  image: string;
-  price: number;
-  inStock: boolean;
-  rating: number;
-  seller: string;
-}
-
-interface OrderItemInterface {
-  product: ProductInterface;
-  quantity: number;
-}
+import { ProductInterface } from 'common';
 
 const Product = (product: ProductInterface) => {
   const navigate = useNavigate();

@@ -18,7 +18,7 @@ const authenticateUser = async (
   }
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    if (typeof payload === 'string') {
+    if (!payload || typeof payload === 'string') {
       throw new UnauthorizedError('Unauthorized');
     }
     req.headers['userId'] = payload.userId;

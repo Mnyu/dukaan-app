@@ -9,32 +9,11 @@ import {
   UserAtom,
   userCartSelector,
   userNameSelector,
-  getTotals,
 } from 'store';
 import CartItem from './CartItem';
 import Loading from './Loading';
 
-interface ProductInterface {
-  _id: string;
-  name: string;
-  description: string;
-  category: string;
-  image: string;
-  price: number;
-  inStock: boolean;
-  rating: number;
-  seller: string;
-}
-
-interface OrderItemInterface {
-  product: ProductInterface;
-  quantity: number;
-}
-
-type OrderPayload = {
-  orderItems: OrderItemInterface[];
-  amount: number;
-};
+import { OrderPayload, getTotals } from 'common';
 
 const Cart = () => {
   const navigate = useNavigate();

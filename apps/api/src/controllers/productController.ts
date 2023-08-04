@@ -5,6 +5,7 @@ import { NotFoundError } from '../errors/notFound';
 import { BadRequestError } from '../errors/badRequest';
 import path from 'path';
 import { UploadedFile } from 'express-fileupload';
+import { createProductProps, updateProductProps } from 'common';
 
 const maxSize = 1024 * 1024;
 
@@ -32,8 +33,13 @@ export const getProducts = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
+  const parsedInput = createProductProps.safeParse(req.body);
+  if (!parsedInput.success) {
+    console.log(parsedInput.error);
+    throw new BadRequestError('Input validation failed');
+  }
   const userId = req.headers.userId;
-  const productPayload = { ...req.body, seller: userId };
+  const productPayload = { ...parsedInput.data, seller: userId };
   const product = await Product.create(productPayload);
   res.status(StatusCodes.CREATED).json({ product });
 };

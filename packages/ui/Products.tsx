@@ -5,18 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Product from './Product';
 import { useRecoilValue } from 'recoil';
 import { userRoleSelector } from 'store';
-
-interface ProductInterface {
-  _id: string;
-  name: string;
-  description: string;
-  category: string;
-  image: string;
-  price: number;
-  inStock: boolean;
-  rating: number;
-  seller: string;
-}
+import { ProductInterface } from 'common';
 
 const Products = () => {
   const userRole = useRecoilValue(userRoleSelector);

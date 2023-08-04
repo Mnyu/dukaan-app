@@ -7,8 +7,9 @@ import {
   UserAtom,
   userCartSelector,
   userNameSelector,
-  getTotals,
 } from 'store';
+
+import { getTotals } from 'common';
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -39,10 +40,10 @@ export const Navbar = () => {
   const logout = () => {
     localStorage.removeItem('token');
     setUserState({
-      name: null,
+      name: '',
       isLoading: false,
-      email: null,
-      role: null,
+      email: '',
+      role: '',
       cart: new Map(),
     });
     navigate('/');

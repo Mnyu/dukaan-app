@@ -4,9 +4,9 @@ export const UserAtom = atom({
   key: 'userAtom',
   default: {
     isLoading: true,
-    name: null,
-    email: null,
-    role: null,
+    name: '',
+    email: '',
+    role: '',
     cart: new Map(),
   },
 });

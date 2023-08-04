@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "common": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
@@ -18,7 +19,8 @@
     "express-fileupload": "^1.4.0",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.1"
+    "mongoose": "^7.4.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
