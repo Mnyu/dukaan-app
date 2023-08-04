@@ -19,7 +19,8 @@ This is an e-commerce app with an admin dashboard and a user facing dashboard us
 
 3. Inside `apps -> api` folder, create a copy of `.env.example` with file name as `.env`.
 
-4. In the `.env` file, replace the values of `MONGO_URI`, `JWT_SECRET` and `JWT_LIFETIME` (possible values 60, 1h, 1d) as per your environment.
+4. In the `.env` file, replace the values of `MONGO_URI`, `JWT_SECRET` and `JWT_LIFETIME` as per your environment.<br>
+   Possible values for `JWT_LIFETIME` could be 60 or 1h or 1d
 
 5. Open new terminal in VSCode and run
 
@@ -27,33 +28,33 @@ This is an e-commerce app with an admin dashboard and a user facing dashboard us
    yarn install
    ```
 
-6.
+6. Build common package
 
-```
-cd packages/common/
-yarn build
-```
+   ```
+   cd packages/common/
+   yarn build
+   ```
 
-7.
+7. Build store package
 
-```
-cd ../store/
-yarn build
-```
+   ```
+   cd ../store/
+   yarn build
+   ```
 
-6. Now run
+8. Now run
 
    ```
    cd ../..
    yarn run dev
    ```
 
-7. Following statements should be visible in logs : <br>
+9. Following statements should be visible in logs : <br>
    `Database connection successful.` <br>
    `Server is listening on port 5000...`
 
-8. Admin Dashboard : `http://localhost:3000/` <br>
-   User Dashboard : `http://localhost:3001/`
+10. Admin Dashboard : `http://localhost:3000/` <br>
+    User Dashboard : `http://localhost:3001/`
 
 ---
 
