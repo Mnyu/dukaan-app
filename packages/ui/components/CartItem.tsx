@@ -7,6 +7,7 @@ import {
   userRoleSelector,
   userNameSelector,
 } from 'store';
+import { BASE_URL } from 'common';
 
 type CartItemProps = {
   productId: string;
@@ -68,7 +69,7 @@ const CartItem = ({ productId }: CartItemProps) => {
 
   return (
     <article className='cart-item'>
-      <img src={`http://localhost:5000${image}`} alt={name} />
+      <img src={`${BASE_URL}${image}`} alt={name} />
       <div>
         <h5>{name}</h5>
         <span className='item-price'>Rs{price}</span>

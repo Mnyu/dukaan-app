@@ -8,7 +8,7 @@ import {
   userEmailSelector,
   userNameSelector,
 } from 'store';
-import { ProductInterface } from 'common';
+import { BASE_API_URL, BASE_URL, ProductInterface } from 'common';
 
 const Product = (product: ProductInterface) => {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Product = (product: ProductInterface) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.delete(
-        `http://localhost:5000/api/v1/products/${productId}`,
+        `${BASE_API_URL}/products/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const Product = (product: ProductInterface) => {
     product;
   return (
     <article className='single-product'>
-      <img src={`http://localhost:5000${image}`} alt={name} className='img' />
+      <img src={`${BASE_URL}${image}`} alt={name} className='img' />
       <span className='product-price'>Rs{price}</span>
       <div className='product-info'>
         <h5>{name}</h5>

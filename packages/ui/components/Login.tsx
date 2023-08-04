@@ -5,7 +5,7 @@ import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { UserAtom } from 'store';
-import { RegisterLoginUserResponse } from 'common';
+import { RegisterLoginUserResponse, BASE_API_URL } from 'common';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Login = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/v1/auth/login',
+        `${BASE_API_URL}/auth/login`,
         loginPayload
       );
       const data: RegisterLoginUserResponse = response.data;

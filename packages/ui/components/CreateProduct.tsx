@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
+import { BASE_API_URL } from 'common';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const CreateProduct = () => {
         // imageData.append('files', previewImage);
         imageData.append('image', file);
         const imageUploadResponse = await axios.post(
-          `http://localhost:5000/api/v1/products/upload`,
+          `${BASE_API_URL}/products/upload`,
           imageData,
           {
             headers: {
@@ -78,7 +79,7 @@ const CreateProduct = () => {
         inStock,
       };
       const response = await axios.post(
-        'http://localhost:5000/api/v1/products',
+        `${BASE_API_URL}/products`,
         addProductPayload,
         {
           headers: {

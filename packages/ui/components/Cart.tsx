@@ -13,7 +13,7 @@ import {
 import CartItem from './CartItem';
 import Loading from './Loading';
 
-import { OrderPayload, getTotals } from 'common';
+import { OrderPayload, getTotals, BASE_API_URL } from 'common';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Cart = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:5000/api/v1/orders',
+        `${BASE_API_URL}/orders`,
         orderPayload,
         {
           headers: {

@@ -7,3 +7,5 @@ export * from './ts-types/product';
 export * from './ts-types/order';
 
 export * from './utils/cartutils';
+
+export * from './config/apiConfig';

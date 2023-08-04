@@ -5,21 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import Product from './Product';
 import { useRecoilValue } from 'recoil';
 import { userRoleSelector } from 'store';
-import { ProductInterface } from 'common';
+import { BASE_API_URL, ProductInterface } from 'common';
 
 const Products = () => {
   const userRole = useRecoilValue(userRoleSelector);
   const [products, setProducts] = useState<ProductInterface[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const BASE_URL = 'http://localhost:5000/api/v1';
   const productsUrl = userRole === 'admin' ? '/products' : '/users/products';
 
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BASE_URL}${productsUrl}`, {
+      const response = await axios.get(`${BASE_API_URL}${productsUrl}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
