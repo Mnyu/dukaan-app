@@ -11,7 +11,7 @@ import {
 
 import { getTotals } from 'common';
 
-export const Navbar = () => {
+const Navbar = () => {
   const navigate = useNavigate();
   const userName = useRecoilValue(userNameSelector);
   const setUserState = useSetRecoilState(UserAtom);
@@ -90,3 +90,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+export default Navbar;

@@ -1,13 +1,8 @@
 'use client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { Navbar } from 'ui';
-import CreateProduct from 'ui/CreateProduct';
-import InitUser from 'ui/InitUser';
-import Login from 'ui/Login';
-import Products from 'ui/Products';
-import Register from 'ui/Register';
 import HomePage from './HomePage';
+import { Navbar, InitUser, Products, Register, Login, CreateProduct } from 'ui';
 
 export default function Page() {
   return (

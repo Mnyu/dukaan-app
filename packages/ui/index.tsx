@@ -1,14 +1,28 @@
-import * as React from 'react';
+import Button from './components/Button';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Register from './components/Register';
+import Loading from './components/Loading';
+import Products from './components/Products';
+import CreateProduct from './components/CreateProduct';
+import InitUser from './components/InitUser';
+import Cart from './components/Cart';
+import CartItem from './components/CartItem';
+import Orders from './components/Orders';
+import Login from './components/Login';
 
 // component exports
-export * from './Button';
-export * from './Header';
-export * from './Navbar';
-export * from './Register';
-export * from './Loading';
-export * from './Login';
-export * from './Products';
-export * from './CreateProduct';
-export * from './InitUser';
-export * from './Cart';
-export * from './Orders';
+export {
+  Button,
+  Header,
+  Navbar,
+  Register,
+  Login,
+  Loading,
+  Products,
+  CreateProduct,
+  InitUser,
+  Orders,
+  Cart,
+  CartItem,
+};

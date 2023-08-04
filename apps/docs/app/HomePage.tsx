@@ -4,9 +4,7 @@ import {
   userEmailSelector,
   userRoleSelector,
 } from 'store';
-import Loading from 'ui/Loading';
-import Login from 'ui/Login';
-import Products from 'ui/Products';
+import { Loading, Products, Login } from 'ui';
 
 const HomePage = () => {
   const isUserLoading = useRecoilValue(isUserLoadingSelector);
